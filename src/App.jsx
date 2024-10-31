@@ -76,7 +76,7 @@ function App() {
         {loading && <div className="loading">Memuat...</div>}
         {typing && <div className="typing">Mengetik...</div>}
         {data && !loading && !typing && (
-          <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true}>
+          <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true} >
             {data}
           </SyntaxHighlight>
         )}
