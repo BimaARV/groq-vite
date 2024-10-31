@@ -35,7 +35,7 @@ function App() {
     if (typing) {
       const timer = setTimeout(() => {
         setTyping(false);
-      }, 2000); // durasi simulasi animasi mengetik
+      }, 5000); // durasi simulasi animasi mengetik
 
       return () => clearTimeout(timer); // membersihkan timeout jika component di-unmount
     }
