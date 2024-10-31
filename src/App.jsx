@@ -12,8 +12,21 @@ function App() {
   const [delay, setDelay] = useState(false);
   const inputRef = useRef(null);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      if (event.shiftKey) {
+        event.preventDefault(); // Mencegah pengiriman form dengan tombol Enter
+        const inputValue = inputRef.current.value;
+        inputRef.current.value = inputValue + "\n"; // Tambahkan baris baru
+      } else {
+        // Jika hanya Enter, kirim permintaan
+        handleSubmit(event);
+      }
+    }
+  };
+
   const handleSubmit = async (event) => {
-    event.preventDefault(); // mencegah perilaku default form submission
+    event.preventDefault();
 
     if (delay) {
       alert("Tunggu 2 menit sebelum membuat permintaan lagi.");
@@ -35,9 +48,9 @@ function App() {
     if (typing) {
       const timer = setTimeout(() => {
         setTyping(false);
-      }, 5000); // durasi simulasi animasi mengetik
+      }, 2000); // durasi simulasi animasi mengetik
 
-      return () => clearTimeout(timer); // membersihkan timeout jika component di-unmount
+      return () => clearTimeout(timer);
     }
   }, [typing]);
 
@@ -49,7 +62,7 @@ function App() {
         setRequestCount(0);
       }, 300000); // 5 menit dalam milidetik
 
-      return () => clearTimeout(delayTimer); // membersihkan timeout jika component di-unmount
+      return () => clearTimeout(delayTimer);
     }
   }, [requestCount]);
 
@@ -57,12 +70,12 @@ function App() {
     <main className="flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto">
       <h1 className="text-4xl text-indigo-500 font-bold">REACT | GROQ AI</h1>
       <form className="flex flex-col gap-4 py-4 w-full" onSubmit={handleSubmit}>
-        <input
+        <textarea
           placeholder="Ketik pertanyaan..."
           className="py-2 px-4 text-md rounded-md"
           id="content"
-          type="text"
           ref={inputRef}
+          onKeyDown={handleKeyDown} // Tambahkan event handler di sini
         />
         <button
           type="submit"
@@ -76,7 +89,7 @@ function App() {
         {loading && <div className="loading">Memuat...</div>}
         {typing && <div className="typing">Mengetik...</div>}
         {data && !loading && !typing && (
-          <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true} >
+          <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true}>
             {data}
           </SyntaxHighlight>
         )}
