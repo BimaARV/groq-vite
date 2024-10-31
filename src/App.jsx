@@ -10,12 +10,14 @@ function App() {
   const [typing, setTyping] = useState(false);
   const [requestCount, setRequestCount] = useState(0);
   const [delay, setDelay] = useState(false);
+  const [history, setHistory] = useState([]); // Menyimpan riwayat prompt
   const inputRef = useRef(null);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (event.shiftKey) {
-        event.preventDefault(); // Mencegah pengiriman form dengan tombol Enter
+        // Jika Shift + Enter ditekan, tambahkan baris baru
+        event.preventDefault();
         const inputValue = inputRef.current.value;
         inputRef.current.value = inputValue + "\n"; // Tambahkan baris baru
       } else {
@@ -33,14 +35,19 @@ function App() {
       return;
     }
 
+    const promptValue = inputRef.current.value; // Ambil nilai input
+
     setLoading(true);
     setTyping(false);
-    const ai = await requestToGroqAI(inputRef.current.value);
+    const ai = await requestToGroqAI(promptValue);
     console.log({ ai });
     setData(ai);
     setLoading(false);
     setTyping(true);
-    inputRef.current.value = ""; // mengosongkan input
+    inputRef.current.value = ""; // Mengosongkan input
+
+    // Menyimpan prompt ke dalam riwayat
+    setHistory((prevHistory) => [...prevHistory, promptValue]);
     setRequestCount((prevCount) => prevCount + 1);
   };
 
@@ -48,7 +55,7 @@ function App() {
     if (typing) {
       const timer = setTimeout(() => {
         setTyping(false);
-      }, 2000); // durasi simulasi animasi mengetik
+      }, 2000); // Durasi simulasi animasi mengetik
 
       return () => clearTimeout(timer);
     }
@@ -85,6 +92,17 @@ function App() {
           Kirim!
         </button>
       </form>
+      
+      {/* Menampilkan riwayat prompt */}
+      <div className="mt-4">
+        <h2 className="text-2xl font-bold">Riwayat Prompt:</h2>
+        <ul className="list-disc pl-5">
+          {history.map((prompt, index) => (
+            <li key={index} className="text-md">{prompt}</li>
+          ))}
+        </ul>
+      </div>
+      
       <div className="max-w-xl w-full mx-auto">
         {loading && <div className="loading">Memuat...</div>}
         {typing && <div className="typing">Mengetik...</div>}
