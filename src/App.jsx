@@ -110,7 +110,7 @@ function App() {
           </div>
         )}
       </div>
-      <a href="https://instagram.com/bimaaxt/" target="_blank" className={`text-xl py-2 px-2 font-bold mt-4 ${darkMode ? 'text-teal-600 hover:text-teal-700' : 'text-gray-600 hover:text-gray-900'}`}>@bimaaxt</a>
+      <a href="https://linksbima.vercel.app/" target="_blank" className={`text-xl py-2 px-2 font-bold mt-4 ${darkMode ? 'text-teal-600 hover:text-teal-700' : 'text-gray-600 hover:text-gray-900'}`}>BIO-LINKS</a>
     </main>
   );
 }
