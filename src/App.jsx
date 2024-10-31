@@ -78,7 +78,7 @@ function App() {
       <h1 className="text-4xl font-bold mb-6">REACT | GROQ AI</h1>
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className={`mb-4 px-4 py-2 rounded-md transition duration-300 ${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
+        className={`mb-4 px-4 py-2 rounded-md transition duration-300 ${darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
       >
         {darkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
