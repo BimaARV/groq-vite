@@ -66,9 +66,9 @@ function App() {
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("bg-gray-900", "text-white");
-      document.body.classList.remove("bg-gray-100", "text-gray-900");
+      document.body.classList.remove("bg-neutral-200", "text-gray-900");
     } else {
-      document.body.classList.add("bg-gray-100", "text-gray-900");
+      document.body.classList.add("bg-neutral-200", "text-gray-900");
       document.body.classList.remove("bg-gray-900", "text-white");
     }
   }, [darkMode]);
@@ -78,14 +78,14 @@ function App() {
       <h1 className="text-4xl font-bold mb-6">REACT | GROQ AI</h1>
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className={`mb-4 px-4 py-2 rounded-md transition duration-300 ${darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
+        className={`mb-4 px-4 py-2 rounded-md transition duration-300 ${darkMode ? 'bg-teal-600 text-white0 hover:bg-teal-700' : 'bg-teal-600 text-white hover:bg-teal-700'}`}
       >
         {darkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
       <form className="flex flex-col gap-4 w-full max-w-xl" onSubmit={handleSubmit}>
         <textarea
           placeholder="Ketik pertanyaan..."
-          className={`py-3 px-4 text-md rounded-md shadow-lg border ${darkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300 bg-white text-gray-900'}`}
+          className={`py-3 px-4 text-md rounded-md shadow-lg border ${darkMode ? 'border-gray-600 bg-gray-800 text-neutral-200' : 'border-neutral-300 bg-white text-gray-900'}`}
           id="content"
           ref={inputRef}
           onKeyDown={handleKeyDown}
@@ -93,7 +93,7 @@ function App() {
         />
         <button
           type="submit"
-          className={`bg-indigo-600 py-2 px-4 font-bold rounded-md shadow transition duration-300 ${darkMode ? 'hover:bg-indigo-700' : 'hover:bg-indigo-600'}`}
+          className={`bg-teal-600 py-2 px-4 font-bold rounded-md shadow transition duration-300 ${darkMode ? 'hover:bg-teal-700' : 'hover:bg-teal-700 text-white'}`}
           disabled={delay}
         >
           Kirim!
@@ -110,7 +110,7 @@ function App() {
           </div>
         )}
       </div>
-      <a href="https://instagram.com/bimaaxt/" target="_blank" className={`text-indigo-500 text-xl py-2 px-2 font-bold mt-4 ${darkMode ? 'text-indigo-300' : 'text-indigo-500'}`}>@bimaaxt</a>
+      <a href="https://instagram.com/bimaaxt/" target="_blank" className={`text-xl py-2 px-2 font-bold mt-4 ${darkMode ? 'text-teal-600 hover:text-teal-700' : 'text-gray-600 hover:text-gray-900'}`}>@bimaaxt</a>
     </main>
   );
 }
