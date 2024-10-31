@@ -92,9 +92,11 @@ function App() {
         {loading && <div className="loading animate-pulse">Memuat...</div>}
         {typing && <div className="typing animate-pulse">Mengetik...</div>}
         {data && !loading && !typing && (
-          <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true}>
-            {data}
-          </SyntaxHighlight>
+          <div className={`w-full ${darkMode ? 'bg-gray-800' : 'bg-white'} p-4 rounded-md`}>
+            <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true}>
+              {data}
+            </SyntaxHighlight>
+          </div>
         )}
       </div>
       <a href="https://instagram.com/bimaaxt/" target="_blank" className={`text-indigo-500 text-xl py-2 px-2 font-bold mt-4 ${darkMode ? 'text-indigo-300' : 'text-indigo-500'}`}>@bimaaxt</a>
