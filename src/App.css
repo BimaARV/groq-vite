@@ -6,7 +6,43 @@
 }
 
 body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Mode Terang */
+.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.light .loading, .light .typing {
+  color: #4c51bf;
+}
+
+.light .card {
+  background-color: #f9f9f9; /* Warna kartu */
+}
+
+.light .read-the-docs {
+  color: #888;
+}
+
+/* Mode Gelap */
+.dark {
   background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.dark .loading, .dark .typing {
+  color: #4c51bf;
+}
+
+.dark .card {
+  background-color: #2d2d2d; /* Warna kartu */
+}
+
+.dark .read-the-docs {
+  color: #aaa;
 }
 
 .logo {
@@ -41,21 +77,27 @@ body {
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
-}
-
 /* App.css */
 .loading {
   font-size: 1.5rem;
-  color: #4c51bf;
-  animation: loadingAnimation 20s infinite;
+  animation: pulse 1s infinite;
 }
 
 .typing {
   font-size: 1.5rem;
-  color: #4c51bf;
-  animation: typingAnimation 20s steps(3, end) infinite;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }
 
 @keyframes loadingAnimation {
@@ -74,7 +116,7 @@ body {
 }
 
 @keyframes typingAnimation {
-  0% {
+  0%, 100% {
     content: "Mengetik.";
   }
   33% {
@@ -82,8 +124,5 @@ body {
   }
   66% {
     content: "Mengetik...";
-  }
-  100% {
-    content: "Mengetik.";
   }
 }

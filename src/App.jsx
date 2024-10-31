@@ -10,16 +10,16 @@ function App() {
   const [typing, setTyping] = useState(false);
   const [requestCount, setRequestCount] = useState(0);
   const [delay, setDelay] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const inputRef = useRef(null);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (event.shiftKey) {
-        event.preventDefault(); // Mencegah pengiriman form dengan tombol Enter
+        event.preventDefault();
         const inputValue = inputRef.current.value;
-        inputRef.current.value = inputValue + "\n"; // Tambahkan baris baru
+        inputRef.current.value = inputValue + "\n";
       } else {
-        // Jika hanya Enter, kirim permintaan
         handleSubmit(event);
       }
     }
@@ -27,7 +27,6 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (delay) {
       alert("Tunggu 2 menit sebelum membuat permintaan lagi.");
       return;
@@ -36,11 +35,10 @@ function App() {
     setLoading(true);
     setTyping(false);
     const ai = await requestToGroqAI(inputRef.current.value);
-    console.log({ ai });
     setData(ai);
     setLoading(false);
     setTyping(true);
-    inputRef.current.value = ""; // mengosongkan input
+    inputRef.current.value = "";
     setRequestCount((prevCount) => prevCount + 1);
   };
 
@@ -48,8 +46,7 @@ function App() {
     if (typing) {
       const timer = setTimeout(() => {
         setTyping(false);
-      }, 2000); // durasi simulasi animasi mengetik
-
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [typing]);
@@ -60,41 +57,47 @@ function App() {
       const delayTimer = setTimeout(() => {
         setDelay(false);
         setRequestCount(0);
-      }, 300000); // 5 menit dalam milidetik
-
+      }, 300000);
       return () => clearTimeout(delayTimer);
     }
   }, [requestCount]);
 
   return (
-    <main className="flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto">
-      <h1 className="text-4xl text-indigo-500 font-bold">REACT | GROQ AI</h1>
-      <form className="flex flex-col gap-4 py-4 w-full" onSubmit={handleSubmit}>
+    <main className={`flex flex-col min-h-screen justify-center items-center ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'} p-6`}>
+      <h1 className="text-4xl font-bold mb-6">REACT | GROQ AI</h1>
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className={`mb-4 px-4 py-2 rounded-md transition duration-300 ${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`}
+      >
+        {darkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
+      <form className="flex flex-col gap-4 w-full max-w-xl" onSubmit={handleSubmit}>
         <textarea
           placeholder="Ketik pertanyaan..."
-          className="py-2 px-4 text-md rounded-md"
+          className={`py-3 px-4 text-md rounded-md shadow-lg border ${darkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300 bg-white text-gray-900'}`}
           id="content"
           ref={inputRef}
-          onKeyDown={handleKeyDown} // Tambahkan event handler di sini
+          onKeyDown={handleKeyDown}
+          rows="4"
         />
         <button
           type="submit"
-          className="bg-indigo-500 py-2 px-4 font-bold text-white rounded-md"
+          className={`bg-indigo-600 py-2 px-4 font-bold rounded-md shadow transition duration-300 ${darkMode ? 'hover:bg-indigo-700' : 'hover:bg-indigo-600'}`}
           disabled={delay}
         >
           Kirim!
         </button>
       </form>
-      <div className="max-w-xl w-full mx-auto">
-        {loading && <div className="loading">Memuat...</div>}
-        {typing && <div className="typing">Mengetik...</div>}
+      <div className="max-w-xl w-full mx-auto mt-4">
+        {loading && <div className="loading animate-pulse">Memuat...</div>}
+        {typing && <div className="typing animate-pulse">Mengetik...</div>}
         {data && !loading && !typing && (
           <SyntaxHighlight language="swift" style={darcula} wrapLongLines={true}>
             {data}
           </SyntaxHighlight>
         )}
       </div>
-      <a href="https://instagram.com/bimaaxt/" target="_blank" className="text-indigo-500 text-1xl py-2 px-2 font-bold">@bimaaxt</a>
+      <a href="https://instagram.com/bimaaxt/" target="_blank" className={`text-indigo-500 text-xl py-2 px-2 font-bold mt-4 ${darkMode ? 'text-indigo-300' : 'text-indigo-500'}`}>@bimaaxt</a>
     </main>
   );
 }
