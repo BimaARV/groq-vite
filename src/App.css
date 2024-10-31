@@ -49,13 +49,13 @@ body {
 .loading {
   font-size: 1.5rem;
   color: #4c51bf;
-  animation: loadingAnimation 10s infinite;
+  animation: loadingAnimation 20s infinite;
 }
 
 .typing {
   font-size: 1.5rem;
   color: #4c51bf;
-  animation: typingAnimation 10s steps(3, end) infinite;
+  animation: typingAnimation 20s steps(3, end) infinite;
 }
 
 @keyframes loadingAnimation {
