@@ -62,8 +62,19 @@ function App() {
     }
   }, [requestCount]);
 
+  // Mengupdate body class berdasarkan mode
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("bg-gray-900", "text-white");
+      document.body.classList.remove("bg-gray-100", "text-gray-900");
+    } else {
+      document.body.classList.add("bg-gray-100", "text-gray-900");
+      document.body.classList.remove("bg-gray-900", "text-white");
+    }
+  }, [darkMode]);
+
   return (
-    <main className={`flex flex-col min-h-screen justify-center items-center ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'} p-6`}>
+    <main className={`flex flex-col min-h-screen justify-center items-center p-6`}>
       <h1 className="text-4xl font-bold mb-6">REACT | GROQ AI</h1>
       <button
         onClick={() => setDarkMode(!darkMode)}
